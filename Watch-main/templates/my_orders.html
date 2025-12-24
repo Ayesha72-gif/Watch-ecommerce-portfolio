@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>My Orders</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+             background-color: #f4f6f9;
+            
+        }
+
+        .my_orders{
+          background-color: white;
+            padding: 40px;
+            width: 100%;
+            margin-top: 100px;
+
+        }
+        .my_orders .title{
+            text-align: center;
+           font-weight: 700;
+           font-size: 40px;
+
+        }
+        .title span{
+            color:rgb(247, 68, 68) ;
+        }
+        .sub_title{
+         font-size: 30px;
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         text-align: center;
+        }
+        .table_order{
+            max-width: 1200px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+         table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        thead {
+            background: #111;
+            color: #fff;
+        }
+        thead th {
+            padding: 12px 15px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: left;
+        }
+        tbody td {
+            padding: 12px 15px;
+            font-size: 14px;
+            color: #333;
+        }
+        tbody tr:hover {
+            background: #f1f1f1;
+            transition: 0.2s;
+        }
+        .view-btn {
+            padding: 6px 20px;
+            background: #e63946;
+            color: #fff !important;
+            font-size: 13px;
+            border-radius: 2px;
+            text-decoration: none;
+
+        }
+        .view-btn:hover {
+            background: #c71220;
+        }
+        @media (max-width: 768px){
+            .title {
+                 font-size: 28px; 
+                }
+            .sub-title { 
+                font-size: 18px; 
+            }
+            table { min-width: 500px; }
+        }
+        @media (max-width: 480px){
+             .my_orders .title { font-size: 30px; }
+            .sub_title { font-size: 17px; }
+            table { min-width: 400px; font-size: 12px; }
+            
+        }
+
+    </style>
+</head>
+<body>
+    {% include 'navbar_top.html' %}
+{% include 'main_navbar.html' %}
+{% include 'items_nav.html' %}
+    <section class="my_orders">
+        <h2 class="title">MY <span>Orders</span></h2>
+        <h3 class="sub_title">Track your recent purchases</h3>
+        <div class="table_order">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order_id</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+               <tbody>
+{% for order in orders %}
+<tr>
+    <td># {{ order.id }}</td>
+    <td>Rs. {{ order.total_price }}</td>
+    <td>
+    {% if order.status == 'pending' %}
+        <span class="badge bg-warning text-dark">Pending</span>
+    {% elif order.status == 'confirmed' %}
+        <span class="badge bg-primary text-dark ">Confirmed</span>
+    {% elif order.status == 'shipped' %}
+        <span class="badge bg-info text-dark">Shipped</span>
+    {% elif order.status == 'delivered' %}
+        <span class="badge bg-success">Delivered</span>
+    {% elif order.status == 'cancelled' %}
+        <span class="badge text-danger">Cancelled</span>
+    {% else %}
+        <span class="badge bg-secondary">Unknown</span>
+    {% endif %}
+</td>
+    <td>{{ order.created_at|date:"d-m-Y" }}</td>
+    <td>"<a href="{% url 'my_order_detail' order.id  %}" class="view-btn">View</a></td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="5" class="text-center">You haven't placed any orders yet.</td>
+</tr>
+{% endfor %}
+</tbody>
+            </table>
+    </section>
+    {% include 'footer.html' %}
+</body>
+</html>

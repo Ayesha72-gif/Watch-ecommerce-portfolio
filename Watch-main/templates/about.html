@@ -1,0 +1,236 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <title>About_Page</title>
+    <style>
+        
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    color: #1a1a1a;
+    background-color: #ffffff;
+}
+
+/* ===== HERO SECTION ===== */
+.about_sec .main_about{
+    width: 100%;
+    height: 520px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about_sec .main_about .bg_blur{
+    position: absolute;
+    inset: 0;
+     background-image: url("{% static 'images/2.jpeg' %}");
+    background-size: cover;
+    background-position: center;
+    filter: blur(1.5px);
+    
+    z-index: 1;
+}
+
+.about_sec .main_about::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(201, 188, 188, 0.15);
+    z-index: 2;
+}
+
+.content_wrapper{
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    max-width: 720px;
+    padding: 0 20px;
+}
+
+.content_wrapper h1{
+    font-size: 50px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.content_wrapper .subtitle{
+    margin-top: 12px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* ===== TEXT CONTENT ===== */
+.about_content{
+    max-width: 1100px;
+    margin: 80px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.content_title{
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.content_title span{
+    color: #d84a4a;
+}
+
+.about-content{
+    font-size: 15.5px;
+    line-height: 1.8;
+    color: #444;
+}
+
+/* ===== IMAGE SECTION ===== */
+.about_image{
+    max-width: 1200px;
+    margin: 70px auto;
+    padding: 0 20px;
+}
+
+.about_image img{
+    width: 100%;
+    max-height: 700px;
+    object-fit: cover;
+}
+
+/* ===== INFO STRIP ===== */
+.about-system{
+    max-width: 1010px;
+    margin: 100px auto 0;
+    padding: 60px 20px;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    background-color: rgb(247, 68, 68);
+}
+
+.about_system_detail{
+    max-width: 320px;
+    text-align: center;
+}
+
+.about_system_detail .icon{
+    font-size: 48px;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.about_system_detail .system_name{
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.about_system_detail .system_para_detail{
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #cccccc;
+}
+.fade-left{
+    opacity: 0;
+    transform: translatex(-50px);
+    animation: fadeInleft 1s ease forwards;
+}
+@keyframes fadeInleft{
+    0%{
+        opacity: 0;
+        transform: translateX(-350px);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px){
+    .about-system{
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+     .about-content{
+        font-size: 12px;
+     }
+    .content_wrapper h1{
+        font-size: 34px;
+    }
+}
+</style>
+
+    
+</head>
+<body>
+    {% include 'navbar_top.html' %}
+{% include 'main_navbar.html' %}
+{% include 'items_nav.html' %}
+    <section class="about_sec">
+       <div class="main_about">
+    <div class="bg_blur"></div>
+    <div class="content_wrapper">  
+        <h1 class="title fade-left">About Us</h1>
+        <p class="subtitle fade-left">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore pariatur aperiam quasi a porro repellat nostrum iusto magni ad animi.</p>
+    </div>
+</div>
+
+
+        </div>
+        <div class="about_content">
+           
+            <div class="content_div">  
+            <span class="content_title">Our <span>Mission</span></span>
+            <p class="about-content">
+                {{ about.aboutMission }}
+                
+            </p>
+        </div>
+            <div class="content_div">  
+            <span class="content_title">Our <span>Vision</span></span>
+            <p class="about-content">
+{{ about.aboutVision }}
+            </p>
+             </div>
+            
+        </div>
+        <div class="about_image">
+            <img src="{{ about.image.url }}" class="img-fluid" alt="...">
+        </div>
+        <div class="about-system">
+            <div class="about_system_detail">
+                <span class="icon"><i class="fa-solid fa-cube"></i></span>
+                <span class="system_name">Shipping Method</span>
+                <div class="system_para_detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, blanditiis.</div>
+            </div>
+            <div class="about_system_detail">
+                <span class="icon"><i class="fa-regular fa-lock"></i></span>
+                <span class="system_name">Secure Payment Method</span>
+                <div class="system_para_detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, blanditiis.</div>
+            </div>
+        </div>
+
+
+
+    </section>
+    {% include 'footer.html' %}
+</body>
+</html>

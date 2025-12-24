@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Product Detail</title>
+
+<style>
+    body{
+        background: #f8f9fa;
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    /* MAIN SECTION */
+    .product-section{
+        max-width: 1200px;
+        margin: auto;
+        padding: 40px 20px;
+        display: flex;
+        gap: 50px;
+    }
+
+    /* PRODUCT IMAGE */
+    .product-img{
+        flex: 1;
+        position: relative;
+    }
+
+    .product-img img{
+        width: 100%;
+    
+        box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        transition: 0.3s;
+        cursor: zoom-in;
+    }
+
+    .product-img img:hover{
+        transform: scale(1.03);
+    }
+
+    /* DETAILS */
+    .product-details{
+        flex: 1;
+    }
+ .product-details h1{
+    font-size: 25px;
+    font-weight: 500;
+ }
+    .product-title{
+        font-size: 28px;
+        font-weight: 700;
+        color: #111;
+    }
+
+    .product-price{
+        font-size: 26px;
+        color: #e63946;
+        font-weight: bold;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    .product-price span{
+        color: #333;
+        font-weight: 600;
+        font-family: sans-serif;
+    }
+
+    .product-description{
+        font-size: 13px;
+        margin-top: 15px;
+        line-height: 1.6;
+        color: #444;
+    }
+
+    /* QUANTITY SELECTOR */
+    .quantity-box{
+        margin-top: 25px;
+    }
+    .quantity-box p{
+        font-size: 15px;
+    }
+    .qty-btn{
+        width: 40px;
+        height: 40px;
+        border: 1px solid #ddd;
+        background: white;
+        font-size: 20px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .qty-btn:hover{
+        background: #eee;
+    }
+
+    .qty-input{
+        width: 60px;
+        text-align: center;
+        border: 1px solid #ddd;
+        height: 40px;
+    }
+
+    /* BUTTONS */
+    .btn-buy{
+        background: #e63946;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 2px;
+        font-size: 14px;
+        border: none;
+        transition: 0.2s;
+    }
+
+    .btn-cart{
+        background: #111;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 2px;
+        font-size: 14px;
+        border: none;
+        transition: 0.2s;
+        text-decoration: none;
+    }
+        .qty-btn{
+        width: 40px;
+        height: 40px;
+        border: 1px solid #ddd;
+        background: white;
+        font-size: 20px;
+        cursor: pointer;
+        transition: 0.2s;
+        display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+    }
+    .btn-buy:hover{
+        background: #c71220;
+    }
+    .btn-cart:hover{
+        background: #333;
+    }
+    /* RELATED PRODUCTS MATCH PRODUCT LIST DESIGN */
+.related-section{
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.related-title{
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* GRID LIKE PRODUCT LIST */
+.related-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 25px;
+}
+
+/* PRODUCT LIST STYLE CARD */
+.related-card{
+    background: white;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.related-card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 6px 22px rgba(0,0,0,0.1);
+}
+
+/* IMAGE */
+.related-card img{
+    width: 100%;
+    height: 330px;
+    object-fit: cover;
+    border-bottom: 3px solid transparent;
+    transition: border-color .3s ease;
+}
+
+.related-card:hover img{
+    border-bottom: 3px solid #ca2b2b;
+}
+
+/* PRODUCT NAME */
+.related-card p{
+    margin: 10px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* HEART WISHLIST LIKE MAIN PRODUCT LIST */
+.related-heart{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 22px;
+    color: #7a7a7a;
+    cursor: pointer;
+    opacity: 0;
+    transition: .3s;
+}
+
+.related-card:hover .related-heart{
+    opacity: 1;
+}
+
+.related-heart.active{
+    color: #ca2b2b;
+}
+.mt-2{
+    text-align: center;
+    color: #111;
+   
+}
+.mt-2 a{
+    text-decoration: none;
+}
+
+    /* RELATED PRODUCTS 
+    .related-section{
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 20px;
+    }
+
+    .related-title{
+        font-size: 26px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .related-grid{
+        display: flex;
+        gap: 25px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .related-card{
+    
+        width: 330px;
+        
+        border-radius: 2px;
+        padding: 10px;
+        /*box-shadow: 0 4px 20px rgba(0,0,0,0.1); 
+        text-align: center;
+        transition: 0.2s;
+    }
+
+    .related-card:hover{
+        transform: translateY(-5px);
+
+    }
+
+    .related-card img{
+        width: 100%;
+        
+    }
+     RESPONSIVE FIX */
+@media (min-width:480px) and (max-width: 768px) {
+    .product-section{
+        
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .product-img img{
+        width: 100%;
+        max-height: 450px;
+        object-fit: cover;
+    }
+
+    .product-details{
+        width: 100%;
+    }
+
+    .btn-buy, .btn-cart{
+        width: 100%;
+    }
+
+    .quantity-box{
+        justify-content: center;
+    }
+}
+
+/* Small devices */
+@media (max-width: 480px){
+    .product-section{
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .product-title{
+        font-size: 22px;
+    }
+
+    .product-price{
+        font-size: 22px;
+    }
+
+    .related-card{
+        width: 100%;
+    }
+    .mt-4{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+</style>
+
+</head>
+<body>
+{% include 'navbar_top.html' %}
+{% include 'main_navbar.html' %}
+{% include 'items_nav.html' %}
+<!-- PRODUCT DETAIL SECTION -->
+<div class="product-section">
+
+    <!-- PRODUCT IMAGE -->
+    <div class="product-img">
+        <img src="{{ produc.image.url }}" alt="">
+    </div>
+
+    <!-- DETAILS -->
+    <div class="product-details">
+
+        <h1 class="product-title">{{ produc.name }}</h1>
+
+        <p class="product-price"><span>PKR</span> {{ main_detail.price }}</p>
+
+        <p class="text-muted">Uploaded on: {{ main_detail.created_at }}</p>
+
+        <p class="product-description">
+            <strong>Details:</strong><br>
+            {{ main_detail.description }}
+        </p>
+      <div class="quantity-box">
+            <p class="fw-bold mb-1">Quantity</p>
+            <div class="d-flex align-items-center gap-2">
+                    <a href="{% url 'decrease_quantity' key %}" class="qty-btn">-
+                       
+                    </a>
+                   <input class="form-control w-25 text-center" value="{{ qty }}" disabled>
+                    <!-- <input class="form-control w-25 text-center" value="{{ item.quantity }}" disabled> -->
+                    
+                    <a href="{% url 'increase_quantity' key %}" class="qty-btn">
+                       +
+                    </a>
+                </div>
+        
+        </div>
+        <!-- QUANTITY
+        <div class="quantity-box">
+            <p class="fw-bold mb-1">Quantity</p>
+            <div class="d-flex align-items-center gap-2">
+                <button class="qty-btn">-</button>
+                <input type="text" value="1" class="qty-input">
+                <button class="qty-btn">+</button>
+            </div>
+        </div> -->
+       
+        <!-- BUTTONS -->
+        <div class="mt-4 d-flex gap-3">
+            <button class="btn-buy">Buy Now</button>
+            
+            <form action="{% url 'add_to_cart' produc.id %}" method="post">
+            {% csrf_token %}
+            <button class="btn-cart">Add to Cart</button>
+        </form>
+        </div>
+
+    </div>
+
+</div>
+
+<hr>
+
+<!--================ RELATED PRODUCTS ====================-->
+<div class="related-section">
+
+
+     <div class="related-grid">
+        {% for img in related_images %}
+        <div class="related-card">
+              <i class="fa-regular fa-heart related-heart"  onclick="toggleHeart(event, this)"></i>
+            <a href="{% url 'related_image_detail' img.id%}">  
+          
+            <img src="{{ img.image.url }}" height="330px" width="330px">
+           
+            </a>
+             <p class="mt-2 fw-bold">{{ img.title }}</p>
+        </div>
+
+        {%endfor %}
+
+</div>
+{% include 'footer.html' %}
+<script>
+function toggleHeart(event, el) {
+    event.stopPropagation();   // Anchor click block
+    event.preventDefault();    // Block link open
+
+    el.classList.toggle("active");
+}
+</script>
+</body>
+</html>

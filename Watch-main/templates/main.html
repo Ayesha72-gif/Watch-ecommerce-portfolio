@@ -1,0 +1,624 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Birthstone&family=Fleur+De+Leah&family=Italianno&family=Rouge+Script&display=swap"
+      rel="stylesheet"
+    />
+  <style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.main {
+  height: 90vh;
+  width: 100%;
+  background-image:  url("{% static 'images/hero.jpeg' %}");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: self-start;
+  padding: 100px 80px;
+  text-align: center;
+  
+  
+}
+
+.main h1{
+font-size:80px;
+font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+font-weight: 800;
+
+
+}
+h1 span{
+  font-family: "Italianno", cursive;
+  font-weight: 900;
+  font-style: normal;
+  font-size: 100px;
+}
+
+.main .top{
+    padding-left: 130px;
+    font-size: 22px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 900;
+    
+    
+
+}
+.hero_btn{
+    
+    height: 50px;
+    width: 140px;
+    text-align: center;
+    background-color: rgb(247, 68, 68);
+    border:  1px solid transparent;
+    border-radius: 3px;
+    font-size: 16px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-decoration: none;
+    color: white;
+    padding: 10px 0;
+    transition: color 0.5s ease;
+    margin-left: 120px;
+   
+}
+.hero_btn:hover{
+    background-color:rgb(202, 45, 45) ;
+     
+}
+/* =====animation fade left-================*/
+.fade-left{
+    opacity: 0;
+    transform: translatex(-50px);
+    animation: fadeInleft 1s ease forwards;
+}
+@keyframes fadeInleft{
+    0%{
+        opacity: 0;
+        transform: translateX(-350px);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+/* ==================== NEW ARRIVALS ==================== */
+.new_arrivals {
+  padding: 50px 20px;
+  background-color: #f8f8f8;
+  text-align: center;
+}
+
+.new_arrivals h1 {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: #333;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+/* Cards grid */
+.new_cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.product-card {
+  position: relative;
+  display: block;
+  background: #fff;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.product-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  transition: transform .3s ease, filter .3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+}
+
+.product-card:hover img {
+  transform: scale(1.05);
+  filter: brightness(0.9);
+  border-bottom: 3px solid #ca2b2b;
+}
+
+/* Wishlist heart */
+.wishlist-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 18px;
+  opacity: 0;
+  transition: opacity .3s ease, color .3s ease;
+  cursor:pointer;
+  color: grey;
+}
+.product-card:hover .wishlist-btn {
+  opacity: 1;
+}
+.wishlist-btn.active {
+  color: #ca2b2b;
+}
+
+/* Product name */
+.name {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Show More button */
+.show_more {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 30px;
+  background-color: #ca2b2b;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.show_more:hover {
+  background-color: #a22a2a;
+}
+ .attach{
+    margin-top: 150px;
+    position: relative;
+    height: 450px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center ;
+    background-image:  url("{% static 'images/2.jpeg' %}");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    overflow: hidden;
+    }
+    .attach::before{
+  content: "";
+  position: absolute;
+ filter: blur(8px); /* blur amount */
+    z-index: 1;
+    transform: scale(1.1);
+}
+.attach h1{
+        font-size: 50px;
+        font-weight:bolder;
+        letter-spacing: -1px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        color: black;
+    }
+    .attach .attach_sub{
+        font-family: sans-serif;
+        font-weight: bolder;
+        letter-spacing: 0.4px;
+        color: black;
+    }
+
+    .popular {
+  padding: 60px 20px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.popular h1 {
+  font-size: 42px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.popular_sub {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 40px;
+}
+
+.popular_cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* reuse SAME card design */
+.product-card {
+  position: relative;
+  background: #fff;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+  transition: transform .3s ease, box-shadow .3s ease;
+  display: block;
+}
+
+.product-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  transition: transform .3s ease, filter .3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+}
+
+.product-card:hover img {
+  transform: scale(1.05);
+  filter: brightness(0.9);
+  border-bottom: 3px solid #ca2b2b;
+}
+
+/* Heart */
+.wishlist-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 18px;
+  opacity: 0;
+  transition: opacity .3s ease, color .3s ease;
+  color: grey;
+  cursor: pointer;
+}
+
+.product-card:hover .wishlist-btn {
+  opacity: 1;
+}
+
+.wishlist-btn.active {
+  color: #ca2b2b;
+}
+
+/* Name */
+.name {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 8px;
+  color: #333;
+}
+/*============================ choice sectiomn */
+ .choice{
+    margin-top: 150px;
+     width: 100%;
+    padding: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 30px;
+}
+.choice img {
+    width: 100%;
+    height: 500px;
+   
+    max-width: 550px;
+    object-fit: cover;
+    justify-self: center;
+}
+
+.choice .choice_content{
+   padding: 30px;
+   display: flex;
+   flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+.choice_content p{
+    text-align: center;
+    padding-top: 15px;
+font-size: 18px;
+font-family: sans-serif;
+font-weight: 500;
+color: grey;
+
+}
+.choice_content a{
+    height: 50px;
+    width: 200px;
+    background-color:rgb(247, 68, 68) ;
+    text-align: center;
+    padding-top: 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    margin-top: 30px;
+border-radius: 2px;
+
+
+}
+.choice_content a:hover{
+    background-color: rgb(175, 44, 44);
+}
+.choice_content h2{
+    font-size: 35px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 900;
+    text-align: center;
+}
+
+/* =======red section============*/
+.main_red{
+    margin-top: 100px;
+            width: 100%;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .red{
+            width: 90%;
+            height: 300px;
+            background-color: rgb(247, 68, 68);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 40px;
+            gap: 20px;
+        }
+      .red .one{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items:center;
+        padding: 20px;
+        gap: 20px;
+        border-right: 2px solid white;
+        text-align: center;
+      }
+      .red .two{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items:center;
+        padding: 20px;
+        gap: 20px;
+        text-align: center;
+      }
+      .one i{
+        font-size: 55px;
+        color: white;
+      }
+      .one h3{
+        font-size: 20px;
+        font-family:sans-serif;
+        color: white;
+      }
+      .one p{
+        font-size: 16px;
+        font-family: sans-serif;
+        color: white;
+      }
+      .two i{
+        font-size: 55px;
+        color: white;
+      }
+      .two h3{
+        font-size: 20px;
+        font-family:sans-serif;
+        color: white;
+      }
+      .two p{
+        font-size: 16px;
+        font-family: sans-serif;
+        color: white;
+      }
+@media (max-width:480px){
+  .main{
+        width: 100%;
+        background-position: right;
+        padding: 0;
+        
+
+    }
+    .hero_btn{
+        margin-left: 0;
+    }
+    .main .top{
+        padding-left: 0;
+    }
+    .main h1{
+       
+        font-size: 42px;
+        text-align: center;
+    }
+    h1 span{
+        font-size: 60px;
+    }
+    .product-card img {
+    height: 180px;
+  }
+   .attach{
+            width: 100%;
+            text-align: center;
+        padding: 20px;
+
+           }
+           .attach h1{
+            font-size: 35px;
+           }
+           .product-card img {
+    height: 180px;
+  }
+  .choice {
+        grid-template-columns: 1fr;
+        padding: 30px 20px;
+        text-align: center;
+    }
+     .choice img {
+        width: 100%;
+        height: auto;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    .red{
+            grid-template-columns: 1fr;
+            height: 900px;
+            padding: 20px;
+            gap: 10px;
+            padding-top: 150px;
+        }
+        .red .one{
+            border-right: 0;
+            padding-top: 50px;
+        }
+}
+
+@media (max-width: 768px) {
+  .product-card img {
+    height: 200px;
+  }
+  .product-card img {
+    height: 200px;
+  }
+   .choice {
+        grid-template-columns: 1fr;
+        padding: 30px 20px;
+        text-align: center;
+    }
+    .choice img {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        height: 400px;
+    }
+   .red{
+            padding: 10px;
+            gap: 10px;
+            height: 600px;
+            grid-template-columns: 1fr;
+            padding-top: 0;
+        }
+        .red .one{
+            border-right: 0;
+            padding-top: 60px;
+        }
+}
+
+  </style>
+    <title>Main Page</title>
+  </head>
+  <body>
+     {% include 'navbar_top.html' %}
+{% include 'main_navbar.html' %}
+    <section class="main">
+      <span class="top fade-left">Capturing life</span>
+      <h1 class="fade-left">One Second <br /><span>at a</span> Time</h1>
+      <button class="hero_btn fade-left">Shop Now</button>
+    </section>
+   <section class="new_arrivals">
+  <h1>New Arrivals</h1>
+  <div class="new_cards">
+    {% for product in new_arrivals %}
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="{% url 'product_detail' product.id %}" class="product-card">
+          <i class="fa-regular fa-heart wishlist-btn" onclick="toggleHeart(event, this)"></i>
+          <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        </a>
+        <p class="name">{{ product.name }}</p>
+      </div>
+    {% empty %}
+      <p class="text-center">No new arrivals at the moment.</p>
+    {% endfor %}
+  </div>
+  <a href="{% url 'product_list' %}?page_type=new" class="show_more" id="show_more">Show More</a>
+</section>
+
+<!-- attach section=============== -->
+ <section class="attach">
+        <h1>Select Your New Perfect Style</h1>
+        <p class="attach_sub">Explore our exclusive collection of the latest luxury watches, designed to elevate your style and keep you ahead of the trends.</p>
+    </section>
+
+    <!-- =============popular items============== -->
+     <section class="popular">
+  <h1>Popular Items</h1>
+  <p class="popular_sub">Top-rated styles everyone is talking about</p>
+
+  <div class="popular_cards">
+    {% for product in popular_items %}
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="{% url 'product_detail' product.id %}" class="product-card">
+          <i class="fa-regular fa-heart wishlist-btn"
+             onclick="toggleHeart(event, this)"></i>
+
+          <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        </a>
+        <p class="name">{{ product.name }}</p>
+      </div>
+    {% empty %}
+      <p class="text-center">No popular items yet.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- ===================choice section============= -->
+  </section>
+<section class="choice">
+        <img src="{% static 'images/choice.jpg' %}" class="img-fluid" alt="..." width="550px">
+        <div class="choice_content">
+            <h2>Watch Of Choice</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat aliquam assumenda autem, vero omnis ipsa at dolorem hic, vitae fuga error, mollitia eius ea amet debitis similique obcaecati nihil explicabo!</p>
+            <a href="{% url 'popular_products' %}">Select Your Choice </a>
+        </div>
+    </section>
+    <!-- =====red section-------================= -->
+     <section class="main_red">
+    <div class="red">
+        
+        <div class="one">
+            <i class="fa-solid fa-cube"></i>
+       <h3>Free Shipping Method</h3>
+       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, praesentium!</p>
+        </div>
+        <div class="two">
+      <i class="fa-solid fa-unlock"></i>
+       <h3>Secure Payment System</h3>
+       <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo, error.</p>
+        </div>
+    </div>
+    </section>
+    {% include 'footer.html' %}
+  </body>
+  <script>
+    function toggleHeart(event, el) {
+    event.preventDefault();
+    el.classList.toggle("active");
+}
+  </script>
+</html>

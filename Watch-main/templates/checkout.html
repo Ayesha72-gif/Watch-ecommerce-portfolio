@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Checkout</title>
+
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: "Segoe UI", sans-serif;
+            font-size: 14px;
+        }
+
+        .container-box {
+            max-width: 1200px;
+            margin: auto;
+            padding: 25px 10px;
+        }
+
+        h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .item-box,
+        .summary-box,
+        .address-box,
+        .payment-box {
+            background: white;
+            padding: 18px;
+            border: 1px solid #ddd;
+        }
+
+        .item-img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+        }
+
+        .saved-address {
+            border-left: 2px solid #e63946;
+            background: #f3f3f3;
+            padding: 10px;
+        }
+
+        .place-btn {
+            width: 100%;
+            padding: 12px;
+            background: #111;
+            color: white;
+            border: none;
+        }
+
+        .btn-address {
+            background: #e63946;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            font-size: 13px;
+        }
+
+        .btn-address:hover {
+            background: #c5121d;
+        }
+
+        .modal-content {
+            border-radius: 0;
+        }
+
+        .modal-body input,
+        .modal-body textarea {
+            border-radius: 0;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'navbar_top.html' %}
+{% include 'main_navbar.html' %}
+{% include 'items_nav.html' %}
+
+<div class="container-box">
+    <h3>Checkout</h3>
+
+    <div class="row g-3">
+
+        <!-- ITEMS -->
+        <div class="col-lg-7">
+            <div class="item-box">
+                <h3>Your Items</h3>
+
+                {% for item in items %}
+                <div class="d-flex gap-3 border-bottom pb-2 mb-3">
+
+                    <!-- <img src="{{ item.product.image.url }}" class="item-img"> -->
+                     {% if item.related_image %}
+                      <img src="{{ item.related_image.image.url }}" class="item-img">
+                  {% else %}
+                      <img src="{{ item.product.image.url }}" class="item-img">
+                  {% endif %}
+
+                    <div class="flex-grow-1">
+                        <!-- <p class="fw-bold mb-1">{{ item.product.name }}</p> -->
+                         <p class="fw-bold mb-1">
+                           {{ item.product.name }}
+                           {% if item.related_image %}(Variant){% endif %}
+                            </p>
+                        <p class="text-danger mb-1">PKR {{ item.product.price }}</p>
+                        <p class="mb-0">Quantity: {{ item.quantity }}</p>
+                    </div>
+
+                    <p class="fw-bold">PKR {{ item.product.price|floatformat:0 }}</p>
+
+                </div>
+                {% endfor %}
+
+            </div>
+
+
+            <!-- ADDRESS -->
+            <div class="address-box mt-3">
+                <h3>Shipping Address</h3>
+
+                {% if addresses %}
+                {% for addr in addresses %}
+                <div class="saved-address mb-2">
+                    <p class="fw-bold mb-0">{{ addr.full_name }}</p>
+                    <p class="mb-0">{{ addr.phone }}</p>
+                    <p class="mb-0">{{ addr.city }}</p>
+                    <p class="mb-0">{{ addr.address }}</p>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+                <button class="btn-address" data-bs-toggle="modal" data-bs-target="#addressModal">
+                    Add / Change Address
+                </button>
+            </div>
+
+
+            <!-- PAYMENT METHOD -->
+            <div class="payment-box mt-3">
+                <h3>Payment Method</h3>
+
+                <label>
+                    <input type="radio" name="payment_method" value="COD" form="orderForm" checked>
+                    Cash on Delivery
+                </label><br>
+
+                <label>
+                    <input type="radio" name="payment_method" value="Card" form="orderForm">
+                    Card Payment
+                </label><br>
+
+                <label>
+                    <input type="radio" name="payment_method" value="Easypaisa" form="orderForm">
+                    Easypaisa / JazzCash
+                </label>
+            </div>
+
+        </div>
+
+
+
+        <!-- SUMMARY -->
+        <div class="col-lg-5">
+            <div class="summary-box">
+                <h3>Order Summary</h3>
+
+                <div class="d-flex justify-content-between">
+                    <span>Subtotal</span>
+                    <span>PKR {{ subtotal }}</span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <span>Shipping</span>
+                    <span>PKR {{ shipping }}</span>
+                </div>
+
+                <hr>
+
+                <div class="d-flex justify-content-between fw-bold fs-5">
+                    <span>Total</span>
+                    <span>PKR {{ final_total }}</span>
+                </div>
+
+                <!-- PLACE ORDER FORM -->
+                <form id="orderForm" action="{% url 'place_order' %}" method="post">
+    {% csrf_token %}
+
+    <input type="hidden" name="subtotal" value="{{ subtotal }}">
+    <input type="hidden" name="shipping" value="{{ shipping }}">
+    <input type="hidden" name="total" value="{{ final_total }}">
+
+    {% if addresses %}
+        <input type="hidden" name="address_id" value="{{ addresses.0.id }}">
+    {% endif %}
+
+    <button class="place-btn mt-3">Place Order</button>
+</form>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- ADDRESS MODAL -->
+<div class="modal fade" id="addressModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form action="{% url 'save_address' %}" method="post">
+                {% csrf_token %}
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Address</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <label>Full Name</label>
+                    <input type="text" name="full_name" class="form-control">
+
+                    <label>Phone</label>
+                    <input type="text" name="phone" class="form-control">
+
+                    <label>City</label>
+                    <input type="text" name="city" class="form-control">
+
+                    <label>Complete Address</label>
+                    <textarea name="address" class="form-control"></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-dark">Save Address</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

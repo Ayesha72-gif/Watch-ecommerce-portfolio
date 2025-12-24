@@ -1,0 +1,260 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Order Detail | Admin</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Birthstone&family=Fleur+De+Leah&family=Italianno&family=Rouge+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <style>
+        body{
+            background: #f8f9fa;
+            font-family: "Segoe UI", sans-serif;
+            padding: 40px 15px;
+        }
+ .admin_order_detail{
+
+    margin-top: 70px;
+}
+        /* Heading (SAME STYLE AS admin_orders) */
+        .main-title{
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #111;
+        }
+
+        .main-title span{
+            color: #e63946;
+        }
+
+        .sub-title{
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 35px;
+            color: #333;
+        }
+
+        /* Wrapper same as admin_orders */
+        .order-box{
+            max-width: 1100px;
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 2px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        /* Section Title */
+        .section-title{
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #222;
+            border-bottom: 2px solid #e63946;
+            display: inline-block;
+            padding-bottom: 4px;
+        }
+
+        /* Info Box */
+        .info-box{
+            background: #f1f1f1;
+            padding: 15px;
+            border-radius: 2px;
+            margin-bottom: 25px;
+        }
+
+        .info-box p{
+            margin: 4px 0;
+            font-size: 15px;
+        }
+
+        .info-box p strong{
+            width: 180px;
+            display: inline-block;
+        }
+
+        /* Table (match admin_orders) */
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        thead{
+            background: #111;
+            color: white;
+        }
+
+        thead th{
+            padding: 12px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        tbody td{
+            padding: 12px;
+            border-bottom: 1px solid #e5e5e5;
+            font-size: 15px;
+        }
+
+        tbody tr:hover{
+            background: #f0f0f0;
+            transition: 0.2s;
+        }
+
+        .table-responsive{
+            overflow-x: auto;
+        }
+
+        /* Total Box */
+        .total-box{
+            text-align: right;
+            font-size: 22px;
+            font-weight: 700;
+            color: #e63946;
+            margin-top: 20px;
+        }
+
+        /* Back Button (match admin_orders theme) */
+        .back-btn{
+            margin-top: 25px;
+            display: inline-block;
+            padding: 10px 25px;
+            background: #e63946;
+            color: #fff !important;
+            border-radius: 2px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .back-btn:hover{
+            background: #c71220;
+        }
+@media (max-width: 480px) {
+        body {
+            padding: 10px;
+        }
+        .product-card img {
+            height: 180px;
+        }
+        .nav ul {
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .back-btn{
+            padding: 7px 20px;
+            font-size: 12px;
+        }
+        .info-box p{
+            font-size: 11px;
+        }
+        .info-box p strong{
+            font-size: 14px;
+        }
+        .section-title{
+            font-size: 15px;
+        }
+        thead th{
+            padding: 7px;
+            font-size: 11px;
+        }
+        tbody td{
+            padding: 6px;
+        }
+        .total-box{
+            font-size: 14px;
+        }
+    }
+       /* @media (max-width: 480px){
+            .main-title{ font-size: 26px; }
+            .sub-title{ font-size: 17px; }
+        }*/
+    </style>
+</head>
+<body>
+{% include 'navbar_top.html' %}
+{% include 'main_navbar.html' %}
+{% include 'items_nav.html' %}
+<section class="admin_order_detail">    
+    <h2 class="main-title">TIME <span>ZONE</span></h2>
+    <h3 class="sub-title">Order Details</h3>
+
+    <div class="order-box">
+
+        <!-- Order Info -->
+        <h3 class="section-title">Order Information</h3>
+        <div class="info-box">
+            <p><strong>Order ID:</strong> #{{ order.id }}</p>
+            <p><strong>Status:</strong> {{ order.status|title }}</p>
+            <p><strong>Date:</strong> {{ order.created_at}}</p>
+            <p><strong>Total Price:</strong> Rs {{ order.total_price }}</p>
+        </div>
+
+        <!-- Customer Info -->
+        <h3 class="section-title">Customer Information</h3>
+        <div class="info-box">
+            <p><strong>Name:</strong> {{ order.user.username }}</p>
+            <p><strong>Email:</strong> {{ order.user.email }}</p>
+            <p><strong>Phone:</strong> {{ order.phone }}</p>
+            <p><strong>Address:</strong> {{ order.address }}</p>
+        </div>
+
+        <!-- Ordered Items -->
+        <h3 class="section-title">Ordered Items</h3>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Image</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for item in order.items.all %}
+                    <tr>
+                        <!-- <td>{{ item.product.name }}</td> -->
+                         <td>
+                            {% if item.related_image %}
+                                {{ item.product.name }} (Variant)
+                            {% else %}
+                                {{ item.product.name }}
+                            {% endif %}
+                        </td>
+                        <!-- <td><img src="{{ item.product.image.url }}" width="70"></td> -->
+                         <td>
+                          {% if item.related_image %}
+                          <img src="{{ item.related_image.image.url }}" width="70">
+                          {% else %}
+                         <img src="{{ item.product.image.url }}" width="70">
+                          {% endif %}
+                      </td>
+                        <td>{{ item.quantity }}</td>
+                        <td>Rs. {{ item.price }}</td>
+                        <td> {{ item.total_price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <p class="total-box">Total: {{ order.total_price }}</p>
+
+        <a class="back-btn" href="{% url 'admin_orders' %}">← Back to Orders</a>
+
+    </div>
+ </section>
+ {% include 'footer.html' %}
+</body>
+</html>

@@ -1,0 +1,256 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>contact</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .contact_sec .hero_contact{
+            height: 750px;
+            width: 100%;
+           
+             background-image: url("{% static 'images/5.jpg' %}");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .contact_sec .hero_contact h1{
+            font-size: 45px;
+            color: white;
+            font-weight: 700;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+        }
+        .hero_contact h1 span{
+            color: #e63946;
+
+        }
+        .hero_contact .hero_para{
+            font-size: 16px;
+            color: white;
+            font-weight: 500;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 10px 200px;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            padding-top: 50px;
+        }
+
+        /* Page heading */
+        .heading {
+            text-align: center;
+            font-weight: 700;
+            font-size: 36px;
+            color: #e63946;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+            margin-bottom: 40px;
+        }
+
+        /* Glass form container */
+        .contact-container {
+            max-width: 750px;
+            margin: auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            border-radius: 2px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+        }
+
+        .contact-container h3 {
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #e63946;
+        }
+        .form-row {
+    display: flex;
+    gap: 40px;
+}
+
+.form-row .form-floating {
+    flex: 1;
+}
+
+
+        .form-floating input, .form-floating textarea {
+            padding: 12px;
+        }
+
+        .form-floating label {
+            font-size: 14px;
+            color: black;
+        }
+
+        .btn-contact {
+            background: #e63946;
+            color: white;
+            padding: 12px 0;
+            border: 0;
+            border-radius: 2px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-contact:hover {
+            background: #c71220;
+            color: white;
+        }
+
+        .alert {
+            padding: 10px;
+            border: 0;
+            font-size: 13px;
+            background: transparent;
+        }
+.fade-left{
+    opacity: 0;
+    transform: translatex(-50px);
+    animation: fadeInleft 1s ease forwards;
+}
+@keyframes fadeInleft{
+    0%{
+        opacity: 0;
+        transform: translateX(-350px);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+        @media (max-width: 480px) {
+            .contact-container {
+                padding: 25px;
+            }
+            .heading {
+                font-size: 28px;
+                margin-bottom: 30px;
+            }
+            .btn-contact {
+                font-size: 14px;
+                padding: 10px 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+     {% include 'navbar_top.html' %}
+{% include 'main_navbar.html' %}
+{% include 'items_nav.html' %}
+    <section class="contact_sec">
+        <div class="hero_contact ">
+            <h1 class="fade-left"> Contact Time <span>Zone</span></h1>
+            <p class="hero_para fade-left">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla aliquam suscipit temporibus. Autem placeat voluptatibus eligendi minus. Maiores, officia ipsum.</p>
+        </div>
+
+
+        <div class="content">
+    
+    <div class="contact-container">
+        <form method="POST" id="contactForm">
+            {% csrf_token %}
+            <h3>Get In Touch</h3>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert
+                        {% if message.tags == 'error' %}alert-danger
+                        {% elif message.tags == 'success' %}alert-success
+                        {% elif message.tags == 'warning' %}alert-warning
+                        {% elif message.tags == 'info' %}alert-info
+                        {% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <!-- <div class="fullname">   
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="first_name" name="first_name" required>
+                <label for="first_name">First Name</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="last_name" name="last_name" required>
+                <label for="last_name">Last Name</label>
+            </div>
+ </div>
+  <div class="fulln">   
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="email" name="email" required>
+                <label for="email">Email</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="phone" name="phone">
+                <label for="phone">Phone</label>
+            </div>
+            </div> -->
+            <div class="form-row">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="first_name" name="first_name" required>
+        <label for="first_name">First Name</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="last_name" name="last_name" required>
+        <label for="last_name">Last Name</label>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="email" name="email" required>
+        <label for="email">Email</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="phone" name="phone">
+        <label for="phone">Phone</label>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="address" name="address">
+                <label for="address">Address</label>
+            </div>
+
+            <div class="form-floating mb-4">
+                <textarea class="form-control" id="message" name="message" style="height:120px;" required></textarea>
+                <label for="message">Message</label>
+            </div>
+
+            <button type="submit" class="btn-contact w-100">Send Message</button>
+        </form>
+    </div>
+</div>
+    </section>
+    {% include 'footer.html' %}
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Inter", Arial, sans-serif;
+        }
+
+        /* The blurred background layer */
+        .bg-blur{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url(./assets/vecteezy_white-gradient-abstract-curve-pattern_22514324.jpeg);
+            background-color: rgb(235, 233, 233);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            filter: blur(2px);
+            z-index: 1;
+        }
+
+        /* Foreground content */
+        .order_confirmation{
+            margin-top: 100px;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            padding: 30px 20px;
+        }
+
+        /* Main card */
+        .order_wrapper{
+            background: rgba(255,255,255,0.95);
+            width: 100%;
+            max-width: 520px;
+            padding: 25px 28px;
+            border-radius: 3px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+        }
+
+        h2{
+            text-align: center;
+            font-size: 20px;
+            color: #e63946;
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+
+        h1{
+            text-align: center;
+            font-size: 17px;
+            color: #333;
+            margin-bottom: 18px;
+            font-weight: 500;
+        }
+
+        /* ORDER INFO */
+        .order_info h4{
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #000;
+        }
+
+        .order_info .row{
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
+        }
+
+        .row span:first-child{
+            color: #666;
+        }
+
+        .row span:last-child{
+            font-weight: 600;
+        }
+
+        /* ORDER DETAILS */
+        .order_details h3{
+            margin-top: 18px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #000;
+        }
+
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        table thead th{
+            background: black;
+            padding: 8px;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        table tbody td{
+            padding: 8px;
+            color: #333;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* TOTAL AREA */
+        .bottom_d{
+            margin-top: 15px;
+            font-size: 13px;
+        }
+
+        .bottom_d p{
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .bottom_d p:last-child{
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media(max-width: 450px){
+            .order_wrapper{
+                padding: 18px;
+            }
+            h2{
+                font-size: 18px;
+            }
+            h1{
+                font-size: 14px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="bg-blur"></div>
+
+<section class="order_confirmation">
+    <div class="order_wrapper">
+     <button class="close-btn" onclick="closeModal()">×</button>
+        <h2>Order Confirmation</h2>
+        <h1>Thank You! Your Order Has Been Received</h1>
+
+        <div class="order_info">
+            <h4>Order Information</h4>
+
+            <div class="row"><span>Order ID</span><span>{{ order.id }}</span></div>
+            <div class="row"><span>Date</span><span>{{ order.created_at|date:"d-m-Y" }}</span></div>
+            <div class="row"><span>Total</span><span>{{ final_total }}</span></div>
+            <div class="row"><span>Status</span><span>{{ order.status }}</span></div>
+            <div class="row"><span>Payment</span><span>{{ order.payment_method }}</span></div>
+        </div>
+
+        <div class="order_details">
+            <h3>Order Details</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order.items.all %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>Rs {{ item.total_price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="bottom_d">
+                <p><span>Subtotal</span><span>Rs {{ subtotal }}</span></p>
+                <p><span>Shipping</span><span>Rs {{ shipping }}</span></p>
+                <p><span>Total</span><span>Rs {{ final_total }}</span></p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+</body>
+<script>
+function closeModal(){
+    window.location.href = "{% url 'product_list' %}"; 
+}
+</script>
+</html>
