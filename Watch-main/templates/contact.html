@@ -41,9 +41,10 @@
             color: white;
             font-weight: 500;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 10px 200px;
+            padding: 10px 20px;
+            max-width: 800px;
         }
-
+    
         .content {
             position: relative;
             z-index: 2;
@@ -136,17 +137,44 @@
 }
         @media (max-width: 480px) {
             .contact-container {
-                padding: 25px;
-            }
-            .heading {
-                font-size: 28px;
-                margin-bottom: 30px;
-            }
-            .btn-contact {
-                font-size: 14px;
-                padding: 10px 0;
-            }
+        padding: 20px 15px;
+    }
+    .heading {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+    .hero_contact {
+        height: 500px;  /* Reduced from 750px */
+    }
+    .hero_contact h1 {
+        font-size: 28px;
+    }
+    .hero_contact .hero_para {
+        font-size: 13px;
+        padding: 10px 10px;
+    }
+    .form-floating input, .form-floating textarea {
+        padding: 10px;
+        font-size: 14px;
+    }
+           
         }
+        @media (min-width: 480px) and (max-width: 786px) {
+    .form-row {
+        flex-direction: column;  /* Stacks form fields vertically */
+        gap: 0;
+    }
+    .hero_contact .hero_para {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+    .hero_contact h1 {
+        font-size: 32px;
+    }
+    .contact-container {
+        padding: 30px 20px;
+    }
+}
 
     </style>
 </head>
